@@ -11,7 +11,8 @@ object ApiClient {
     private val client = OkHttpClient()
 
     // Android emulator -> your computer's localhost
-    private const val BASE_URL = "http://127.0.0.1:8787"
+    //private const val BASE_URL = "http://127.0.0.1:8787"
+    private const val BASE_URL = "http://10.0.2.2:8787"
 
     fun register(
         name: String,
@@ -139,4 +140,65 @@ object ApiClient {
         })
     }
 }
+/*package com.example.tabi
+
+import android.os.Handler
+import android.os.Looper
+
+object ApiClient {
+
+    // 🔒 Local memory database simulating an isolated server storage system
+    private val localUserDatabase = mutableMapOf<String, String>()
+
+    fun register(
+        name: String,
+        email: String,
+        password: String,
+        onResult: (Boolean, String) -> Unit
+    ) {
+        // Simulate a 1-second network processing delay for visual loading effects
+        Handler(Looper.getMainLooper()).postDelayed({
+            when {
+                name.isBlank() || email.isBlank() || password.isBlank() -> {
+                    onResult(false, "Registration Failed: Fields cannot be empty.")
+                }
+                localUserDatabase.containsKey(email) -> {
+                    onResult(false, "Registration Failed: Email already registered.")
+                }
+                else -> {
+                    // Save the user inside your local memory sandbox
+                    localUserDatabase[email] = password
+                    onResult(true, "Success: Account created inside local sandbox!")
+                }
+            }
+        }, 1000)
+    }
+
+    fun login(
+        email: String,
+        password: String,
+        onResult: (Boolean, String) -> Unit
+    ) {
+        Handler(Looper.getMainLooper()).postDelayed({
+            when {
+                email.isBlank() || password.isBlank() -> {
+                    onResult(false, "Login Failed: Missing email or password.")
+                }
+                // Testing backdoor backdoor shortcut credential so you can always log in instantly
+                email == "test@test.com" && password == "Password123!" -> {
+                    onResult(true, "Success: Logged in via master test user.")
+                }
+                localUserDatabase[email] == password -> {
+                    onResult(true, "Success: Welcome back!")
+                }
+                else -> {
+                    onResult(false, "Login Failed: Invalid credentials.")
+                }
+            }
+        }, 1000)
+    }
+}
+*/
+
+
 
